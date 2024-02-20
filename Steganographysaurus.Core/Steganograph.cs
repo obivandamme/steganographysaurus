@@ -4,8 +4,8 @@ namespace Steganographysaurus.Core
 {
 	public class Steganograph
 	{
-		public Bitmap Image { get; }
-		public Steganograph(Bitmap image)
+		public IStegoImage Image { get; }
+		public Steganograph(IStegoImage image)
 		{
 			Image = image;
 		}
