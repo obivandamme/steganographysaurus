@@ -1,5 +1,6 @@
+
 using Steganographysaurus.Core;
-using System.Drawing;
+using Steganographysaurus.Infrastructure;
 
 namespace Steganographysaurus.Tests
 {
@@ -12,14 +13,16 @@ namespace Steganographysaurus.Tests
 		[TestCase(1, 1, 1)]
 		public void ShouldHidePixels(int r, int g, int b)
 		{
-			var stegoImageName = $"steganographysaurus_hidden_{r}{g}{b}.png";
-			var coverImage = new Bitmap("Data/steganographysaurus.png");
+
+			var target = $"steganographysaurus_hidden_{r}{g}{b}.png";
+			var source = "Data/steganographysaurus.png";
+			var coverImage = new BitmapStegoImage(source);
 			var steganograph = new Steganograph(coverImage);
 
 			steganograph.HideBits(new Vector2 { X = 0, Y = 0 }, new Vector3 { R = r, G = g, B = b });
-			steganograph.Image.Save(stegoImageName);
+			coverImage.Save(target);
 
-			using (var stegoImage = new Bitmap(stegoImageName))
+			using (var stegoImage = new BitmapStegoImage(target))
 			{
 				var hiddenSteganograph = new Steganograph(stegoImage);
 				var bits = hiddenSteganograph.RevealBits(new Vector2 { X = 0, Y = 0 });
@@ -29,7 +32,7 @@ namespace Steganographysaurus.Tests
 				Assert.AreEqual(b, bits.B);
 			}
 
-			File.Delete(stegoImageName);
+			File.Delete(target);
 		}
 	}
 }

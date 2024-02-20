@@ -1,6 +1,6 @@
 ﻿using Steganographysaurus.Core;
 
-namespace Steganographysaurus.Console
+namespace Steganographysaurus.Infrastructure
 {
 	public class BitmapStegoImageRepository : IStegoRepository
 	{
@@ -13,7 +13,7 @@ namespace Steganographysaurus.Console
 		{
 			if(image is BitmapStegoImage)
 			{
-				((BitmapStegoImage)image).Bitmap.Save(filename);
+				((BitmapStegoImage)image).Save(filename);
 			}
 			else
 			{

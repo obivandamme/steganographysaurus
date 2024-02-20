@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Steganographysaurus.Core\Steganographysaurus.Core.csproj" />
+    <ProjectReference Include="..\Steganographysaurus.Infrastructure\Steganographysaurus.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

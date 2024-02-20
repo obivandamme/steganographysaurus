@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Steganographysaurus.Console;
+using Steganographysaurus.Infrastructure;
 using Steganographysaurus.Core;
 
 var message = $"Hello World!\x1A";

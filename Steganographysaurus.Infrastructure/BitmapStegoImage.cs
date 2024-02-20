@@ -1,11 +1,11 @@
 ﻿using Steganographysaurus.Core;
 using System.Drawing;
 
-namespace Steganographysaurus.Console
+namespace Steganographysaurus.Infrastructure
 {
 	public class BitmapStegoImage : IStegoImage
 	{
-		public Bitmap Bitmap { get; set; }
+		private Bitmap Bitmap { get; set; }
 
 		public BitmapStegoImage(string filename)
 		{
@@ -24,6 +24,15 @@ namespace Steganographysaurus.Console
 		public void SetPixel(int x, int y, Color color)
 		{
 			Bitmap.SetPixel(x, y, color);
+		}
+		public void Save(string filename)
+		{
+			Bitmap.Save(filename);
+		}
+
+		public void Dispose()
+		{
+			Bitmap.Dispose();
 		}
 	}
 }

@@ -13,9 +13,6 @@ namespace Steganographysaurus.Core
 
 		public void HideMessage(string message, string password, string source, string target)
 		{
-			var seed = password.GetStaticHashCode();
-			var image = Repository.Load(source);
-
 			var messageBytes = Encoding.ASCII.GetBytes(message);
 			var messageBits = new BitArray(messageBytes);
 
@@ -24,11 +21,12 @@ namespace Steganographysaurus.Core
 				messageBits.Length += 1;
 			}
 
-			var rng = new Random(seed);
-			var usedPixels = new List<Vector2>();
+			using var image = Repository.Load(source);
 			var steganograph = new Steganograph(image);
 
 			var bitsHidden = 0;
+			var rng = new Random(password.GetStaticHashCode());
+			var usedPixels = new List<Vector2>();
 			while (bitsHidden < messageBits.Length)
 			{
 				var coordinates = new Vector2
@@ -60,13 +58,12 @@ namespace Steganographysaurus.Core
 
 		public string RevealMessage(string password, string filename)
 		{
-			var seed = password.GetStaticHashCode();
-			var image = Repository.Load(filename);
-			var rng = new Random(seed);
-			var usedPixels = new List<Vector2>();
-			var steanograph = new Steganograph(image);
-			var decoder = new Decoder();
+			using var image = Repository.Load(filename);
+			var steganograph = new Steganograph(image);
 
+			var decoder = new Decoder();
+			var rng = new Random(password.GetStaticHashCode());
+			var usedPixels = new List<Vector2>();
 			while (decoder.IsEOF == false)
 			{
 				var coordinates = new Vector2
@@ -81,7 +78,7 @@ namespace Steganographysaurus.Core
 					continue;
 				}
 
-				var bits = steanograph.RevealBits(coordinates);
+				var bits = steganograph.RevealBits(coordinates);
 
 				decoder.Decode(bits);
 				usedPixels.Add(coordinates);
