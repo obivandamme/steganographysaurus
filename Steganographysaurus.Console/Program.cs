@@ -4,8 +4,7 @@ using Steganographysaurus.Core;
 
 var source = "Data/steganographysaurus.png";
 var target = "Data/steganographysaurus-hidden.png";
-var repository = new BitmapStegoImageRepository();
-var service = new SteganographyService(repository);
+var service = new SteganographyService();
 
 Console.WriteLine("Welcome to Steganographysaurus");
 Console.WriteLine("Hiding and revealing messages in images");
@@ -30,15 +29,22 @@ switch (option)
 		pwd = Console.ReadLine() ?? "123456";
 
 		Console.WriteLine("Hiding message...");
-		service.HideMessage(message, pwd, source, target);
-		Console.WriteLine("Done!");
+		using (var image = new BitmapStegoImage(source))
+		{
+			service.HideMessage(message, pwd, image);
+			image.Save(target);
+			Console.WriteLine("Done!");
+		} 
 		break;
 	case "2":
 		Console.WriteLine("Enter the password to reveal the message (optional):");
 		pwd = Console.ReadLine() ?? "123456";
 		Console.WriteLine("Revealing message...");
-		message = service.RevealMessage(pwd, target);
-		Console.WriteLine(message);
+		using(var image = new BitmapStegoImage(target))
+		{
+			message = service.RevealMessage(pwd, image);
+			Console.WriteLine(message);
+		}
 		break;
 	default:
 		Console.WriteLine("Invalid option");

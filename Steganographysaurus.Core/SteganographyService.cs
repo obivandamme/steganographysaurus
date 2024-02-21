@@ -5,13 +5,7 @@ namespace Steganographysaurus.Core
 {
 	public class SteganographyService
 	{
-		public IStegoRepository Repository { get; set; }
-		public SteganographyService(IStegoRepository repository)
-		{
-			Repository = repository;
-		}
-
-		public void HideMessage(string message, string password, string source, string target)
+		public IStegoImage HideMessage(string message, string password, IStegoImage source)
 		{
 			var messageBytes = Encoding.ASCII.GetBytes(message);
 			var messageBits = new BitArray(messageBytes);
@@ -21,8 +15,7 @@ namespace Steganographysaurus.Core
 				messageBits.Length += 1;
 			}
 
-			using var image = Repository.Load(source);
-			var steganograph = new Steganograph(image);
+			var steganograph = new Steganograph(source);
 
 			var bitsHidden = 0;
 			var rng = new Random(password.GetStaticHashCode());
@@ -31,8 +24,8 @@ namespace Steganographysaurus.Core
 			{
 				var coordinates = new Vector2
 				{
-					X = rng.Next(image.Width),
-					Y = rng.Next(image.Height)
+					X = rng.Next(source.Width),
+					Y = rng.Next(source.Height)
 				};
 
 				if (usedPixels.Contains(coordinates))
@@ -53,12 +46,11 @@ namespace Steganographysaurus.Core
 				bitsHidden += 3;
 			}
 
-			Repository.Save(target, image);
+			return source;
 		}
 
-		public string RevealMessage(string password, string filename)
+		public string RevealMessage(string password, IStegoImage image)
 		{
-			using var image = Repository.Load(filename);
 			var steganograph = new Steganograph(image);
 
 			var decoder = new Decoder();
