@@ -5,10 +5,11 @@ namespace Steganographysaurus.Core
 {
 	public class SteganographyService
 	{
-		public IStegoImage HideMessage(string message, string password, IStegoImage source)
+		public void HideMessage(string message, string password, IStegoImage source)
 		{
-			var messageBytes = Encoding.ASCII.GetBytes(message);
-			var messageBits = new BitArray(messageBytes);
+			var messageBytes = Encoding.ASCII.GetBytes($"{message}\u001a");
+
+            var messageBits = new BitArray(messageBytes);
 
 			while (messageBits.Length % 3 != 0)
 			{
@@ -45,8 +46,6 @@ namespace Steganographysaurus.Core
 				usedPixels.Add(coordinates);
 				bitsHidden += 3;
 			}
-
-			return source;
 		}
 
 		public string RevealMessage(string password, IStegoImage image)

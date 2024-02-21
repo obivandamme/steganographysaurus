@@ -4,7 +4,7 @@ namespace Steganographysaurus.Core
 {
 	public class Decoder
 	{
-		private const string EOF = "\x1A";
+		private const string EOF = "\u001a";
 		public bool IsEOF { get; private set; }
 		public string Message { get; private set; }
 		private int Buffer { get; set; }

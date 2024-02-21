@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steganographysaurus.Core", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steganographysaurus.Tests", "Steganographysaurus.Tests\Steganographysaurus.Tests.csproj", "{11F5A1AE-FF32-4D53-ACB4-4E47EC8F60D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steganographysaurus.Infrastructure", "Steganographysaurus.Infrastructure\Steganographysaurus.Infrastructure.csproj", "{B36C7A7C-33CE-4FF6-97CF-8228695CEE0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steganographysaurus.Infrastructure", "Steganographysaurus.Infrastructure\Steganographysaurus.Infrastructure.csproj", "{B36C7A7C-33CE-4FF6-97CF-8228695CEE0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steganographysaurus.WebApp", "Steganographysaurus.WebApp\Steganographysaurus.WebApp.csproj", "{7B860196-5273-4256-A0B6-9161FB71934F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B36C7A7C-33CE-4FF6-97CF-8228695CEE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B36C7A7C-33CE-4FF6-97CF-8228695CEE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B36C7A7C-33CE-4FF6-97CF-8228695CEE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B860196-5273-4256-A0B6-9161FB71934F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B860196-5273-4256-A0B6-9161FB71934F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B860196-5273-4256-A0B6-9161FB71934F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B860196-5273-4256-A0B6-9161FB71934F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

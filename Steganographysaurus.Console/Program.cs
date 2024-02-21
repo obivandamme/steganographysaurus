@@ -23,7 +23,7 @@ switch (option)
 	case "1":
 		Console.WriteLine("Enter a message to hide in the image:");
 		var input = Console.ReadLine();
-		message = $"{input}\x1A";
+		message = $"{input}";
 
 		Console.WriteLine("Enter a password to protect the message (optional):");
 		pwd = Console.ReadLine() ?? "123456";
