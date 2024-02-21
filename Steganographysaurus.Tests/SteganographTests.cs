@@ -1,6 +1,7 @@
 
 using Steganographysaurus.Core;
 using Steganographysaurus.Infrastructure;
+using System.Drawing;
 
 namespace Steganographysaurus.Tests
 {
@@ -16,13 +17,13 @@ namespace Steganographysaurus.Tests
 
 			var target = $"steganographysaurus_hidden_{r}{g}{b}.png";
 			var source = "Data/steganographysaurus.png";
-			var coverImage = new BitmapStegoImage(source);
+			var coverImage = new BitmapStegoImage(new Bitmap(source));
 			var steganograph = new Steganograph(coverImage);
 
 			steganograph.HideBits(new Vector2 { X = 0, Y = 0 }, new Vector3 { R = r, G = g, B = b });
 			coverImage.Save(target);
 
-			using (var stegoImage = new BitmapStegoImage(target))
+			using (var stegoImage = new BitmapStegoImage(new Bitmap(target)))
 			{
 				var hiddenSteganograph = new Steganograph(stegoImage);
 				var bits = hiddenSteganograph.RevealBits(new Vector2 { X = 0, Y = 0 });

@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Steganographysaurus.Infrastructure;
 using Steganographysaurus.Core;
+using System.Drawing;
 
 var source = "Data/steganographysaurus.png";
 var target = "Data/steganographysaurus-hidden.png";
@@ -29,7 +30,7 @@ switch (option)
 		pwd = Console.ReadLine() ?? "123456";
 
 		Console.WriteLine("Hiding message...");
-		using (var image = new BitmapStegoImage(source))
+		using (var image = new BitmapStegoImage(new Bitmap(source)))
 		{
 			service.HideMessage(message, pwd, image);
 			image.Save(target);
@@ -40,7 +41,7 @@ switch (option)
 		Console.WriteLine("Enter the password to reveal the message (optional):");
 		pwd = Console.ReadLine() ?? "123456";
 		Console.WriteLine("Revealing message...");
-		using(var image = new BitmapStegoImage(target))
+		using (var image = new BitmapStegoImage(new Bitmap(target)))
 		{
 			message = service.RevealMessage(pwd, image);
 			Console.WriteLine(message);

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Steganographysaurus.Core;
-using Steganographysaurus.WebApp.Models;
+using Steganographysaurus.Infrastructure;
+using System.Drawing;
 
 namespace Steganographysaurus.WebApp.Pages
 {
@@ -24,7 +25,8 @@ namespace Steganographysaurus.WebApp.Pages
 
 		public void OnPost()
 		{
-			Message = Service.RevealMessage(Password, new FormFileStegoImage(StegoImage));
+			using var stegoImage = new BitmapStegoImage(new Bitmap(StegoImage.OpenReadStream()));
+			Message = Service.RevealMessage(Password, stegoImage);
 		}
 	}
 }

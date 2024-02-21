@@ -2,7 +2,7 @@
 
 namespace Steganographysaurus.Core
 {
-	public interface IStegoImage : IDisposable
+	public interface IStegoImage
 	{
 		Color GetPixel(int x, int y);
 		void SetPixel(int x, int y, Color color);

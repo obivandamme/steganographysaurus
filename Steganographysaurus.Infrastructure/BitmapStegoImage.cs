@@ -3,13 +3,15 @@ using System.Drawing;
 
 namespace Steganographysaurus.Infrastructure
 {
-	public class BitmapStegoImage : IStegoImage
+	public class BitmapStegoImage : IStegoImage, IDisposable
 	{
+		private ImageConverter ImageConverter { get; set; }
 		private Bitmap Bitmap { get; set; }
 
-		public BitmapStegoImage(string filename)
+		public BitmapStegoImage(Bitmap bitmap)
 		{
-			Bitmap = new Bitmap(filename);
+			Bitmap = bitmap;
+			ImageConverter = new ImageConverter();
 		}
 
 		public int Width => Bitmap.Width;
@@ -34,5 +36,10 @@ namespace Steganographysaurus.Infrastructure
 		{
 			Bitmap.Dispose();
 		}
-	}
+
+        public byte[] ToByteArray()
+        {
+            return (byte[])ImageConverter.ConvertTo(Bitmap, typeof(byte[]));
+        }
+    }
 }

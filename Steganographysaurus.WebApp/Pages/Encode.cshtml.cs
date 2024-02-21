@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Steganographysaurus.Core;
-using Steganographysaurus.WebApp.Models;
+using Steganographysaurus.Infrastructure;
 using System.Drawing;
 
 namespace Steganographysaurus.WebApp.Pages
@@ -26,7 +26,7 @@ namespace Steganographysaurus.WebApp.Pages
 
         public ActionResult OnPost()
 		{
-			using var image = new FormFileStegoImage(CoverImage);
+			using var image = new BitmapStegoImage(new Bitmap(CoverImage.OpenReadStream()));
 			Service.HideMessage(Message, Password, image);
 			return File(image.ToByteArray(), "application/octet-stream", "stego-image.png");
 		}
