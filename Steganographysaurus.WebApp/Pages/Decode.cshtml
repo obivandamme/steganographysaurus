@@ -19,7 +19,13 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <input type="file" asp-for="StegoImage" accept=".png" class="form-control" placeholder="Choose cover file" />
+                        <input type="file" asp-for="StegoImage" accept=".png" class="form-control" onchange="preview(this)" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <img id="image-preview" class="d-none" alt="preview" />
                     </div>
                 </div>
 
